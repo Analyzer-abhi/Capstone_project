@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+:root {
+  /* Gemini-Inspired Theme - Monochrome with Transparency */
+  --bg-solid: #fafafa;
+  --surface: rgba(255, 255, 255, 0.7);
+  --surface-solid: #ffffff;
+  --surface-hover: rgba(245, 245, 245, 0.8);
+  --border: rgba(0, 0, 0, 0.08);
+  --text: #1a1a1a;
+  --text-muted: #666666;
+  
+  /* Monochrome Accent - Dark Grey/Black */
+  --accent: #2d2d2d;
+  --accent-hover: #1a1a1a;
+  --accent-light: rgba(0, 0, 0, 0.04);
+  --accent-glow: rgba(0, 0, 0, 0.1);
+  
+  /* Success - Dark Grey */
+  --success: #404040;
+  --success-light: rgba(0, 0, 0, 0.05);
+  --success-glow: rgba(0, 0, 0, 0.08);
+  
+  /* Warning - Medium Grey */
+  --warning: #737373;
+  --warning-light: rgba(0, 0, 0, 0.06);
+  
+  /* Error - Dark Grey */
+  --error: #525252;
+  --error-light: rgba(0, 0, 0, 0.05);
+  
+  /* Grey Scale */
+  --grey-50: #fafafa;
+  --grey-100: #f5f5f5;
+  --grey-200: #e5e5e5;
+  --grey-300: #d4d4d4;
+  --grey-400: #a3a3a3;
+  --grey-500: #737373;
+  --grey-600: #525252;
+  --grey-700: #404040;
+  --grey-800: #262626;
+  --grey-900: #171717;
+  
+  /* Glassmorphism */
+  --glass: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --backdrop-blur: blur(20px);
+  
+  /* Shadows - Subtle and soft */
+  --radius: 16px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.12);
+  
+  /* Fonts */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg-solid);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.02) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 0, 0, 0.02) 0%, transparent 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(250, 250, 250, 0.8) 100%);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, textarea {
+  font-family: inherit;
+}

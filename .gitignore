@@ -1,0 +1,13 @@
+node_modules/
+.env
+backend/.env
+backend/uploads/
+*-service-account*.json
+*firebase*credentials*
+dist/
+frontend/dist/
+*.log
+.DS_Store
+roadmap-ffe52-firebase-adminsdk-fbsvc-53ab4661b5.json
+backend/*.json
+backend/capstone-project-analyzer-firebase-adminsdk-fbsvc-02b387483b.json
