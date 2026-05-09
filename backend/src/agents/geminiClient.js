@@ -13,23 +13,34 @@ export function getModel(name) {
 }
 export async function generateContent(prompt, options = {}) {
   try {
+
     const model = getModel(options.model);
 
     const result = await model.generateContent(prompt);
 
-    return result.response.text();
+    const response = result.response;
+
+    return response.text();
 
   } catch (error) {
 
     console.error('Gemini API Error:', error);
 
-    if (error.message?.includes('429')) {
+    if (
+      error.message?.includes('429') ||
+      error.toString().includes('429')
+    ) {
 
-      throw new Error(
-        'AI is temporarily busy. Please wait 30 seconds and try again.'
-      );
+      return `
+AI service is temporarily busy due to free-tier limits.
+
+Please wait about 1 minute and try again.
+`;
     }
 
-    throw new Error('Failed to generate AI response');
+    return `
+Failed to generate AI response.
+Please try again later.
+`;
   }
 }
