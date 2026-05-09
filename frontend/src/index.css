@@ -343,30 +343,40 @@ input, textarea, select {
   background: var(--text-primary);
   color: var(--bg-primary);
   box-shadow: var(--shadow-lg);
+  font-weight: 600;
 }
 
 .btn-primary:hover {
   background: var(--accent-hover);
   transform: translateY(-2px);
   box-shadow: var(--shadow-xl);
+  color: var(--bg-primary);
 }
 
 .btn-primary:active {
   transform: translateY(0);
   box-shadow: var(--shadow);
+  color: var(--bg-primary);
 }
 
 .btn-primary::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.08);
   opacity: 0;
   transition: opacity 0.3s;
+  border-radius: 12px;
 }
 
 .btn-primary:hover::before {
   opacity: 1;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* Secondary Button - Outline */
@@ -381,10 +391,12 @@ input, textarea, select {
   border-color: var(--text-secondary);
   transform: translateY(-2px);
   box-shadow: var(--shadow);
+  color: var(--text-primary);
 }
 
 .btn-secondary:active {
   transform: translateY(0);
+  color: var(--text-primary);
 }
 
 /* Ghost Button - Minimal */
@@ -397,6 +409,7 @@ input, textarea, select {
 .btn-ghost:hover {
   background: var(--surface-light);
   transform: translateX(4px);
+  color: var(--text-primary);
 }
 
 /* Danger Button */
@@ -410,6 +423,7 @@ input, textarea, select {
   background: #e53e3e;
   transform: translateY(-2px);
   box-shadow: var(--error-glow);
+  color: #ffffff;
 }
 
 /* Success Button */
@@ -423,11 +437,12 @@ input, textarea, select {
   background: #22c55e;
   transform: translateY(-2px);
   box-shadow: var(--success-glow);
+  color: #000000;
 }
 
 /* Loading Button */
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
@@ -464,6 +479,7 @@ input, textarea, select {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   opacity: 0;
   transition: opacity 0.3s;
+  pointer-events: none;
 }
 
 .card:hover {
