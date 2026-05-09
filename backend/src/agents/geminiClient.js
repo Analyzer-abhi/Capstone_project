@@ -1,55 +1,115 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { config } from '../config.js';
 
-const genAI = config.geminiApiKey
-  ? new GoogleGenerativeAI(config.geminiApiKey)
-  : null;
+/*
+  Dynamically collect all Gemini API keys from env:
+  GEMINI_API_KEY_1
+  GEMINI_API_KEY_2
+  GEMINI_API_KEY_3
+  ...
+*/
 
-export function getModel(name) {
-  if (!genAI) {
-    throw new Error('GEMINI_API_KEY is not set');
-  }
+const API_KEYS = Object.keys(process.env)
+  .filter((key) =>
+    key === 'GEMINI_API_KEY' ||
+    key.startsWith('GEMINI_API_KEY_'))
+  .sort()
+  .map((key) => process.env[key])
+  .filter(Boolean);
 
-  const modelName = name || config.geminiModel;
+if (API_KEYS.length === 0) {
+  throw new Error('No Gemini API keys found');
+}
 
-  console.log('Using Gemini model:', modelName);
+const MODEL_NAME =
+  config.geminiModel || 'gemini-2.5-flash';
+
+/*
+  Active key index persists in memory
+*/
+let activeKeyIndex = 0;
+
+function getCurrentModel() {
+
+  const apiKey = API_KEYS[activeKeyIndex];
+
+  const genAI = new GoogleGenerativeAI(apiKey);
+
+  console.log(
+    `Using Gemini Key #${activeKeyIndex + 1}`
+  );
 
   return genAI.getGenerativeModel({
-    model: modelName,
+    model: MODEL_NAME,
   });
 }
 
-export async function generateContent(prompt, options = {}) {
+function switchToNextKey() {
 
-  try {
+  activeKeyIndex =
+    (activeKeyIndex + 1) % API_KEYS.length;
 
-    const model = getModel(options.model);
+  console.log(
+    `Switched to Gemini Key #${activeKeyIndex + 1}`
+  );
+}
 
-    const result = await model.generateContent(prompt);
+export async function generateContent(
+  prompt,
+  options = {}
+) {
 
-    const response = result.response;
+  let attempts = 0;
 
-    return response.text();
+  while (attempts < API_KEYS.length) {
 
-  } catch (error) {
+    try {
 
-    console.error('Gemini API Error:', error);
+      const model = getCurrentModel();
 
-    if (
-      error.message?.includes('429') ||
-      error.toString().includes('429')
-    ) {
+      const result =
+        await model.generateContent(prompt);
 
+      const response = result.response;
+
+      return response.text();
+
+    } catch (error) {
+
+      console.error(
+        'Gemini API Error:',
+        error.message
+      );
+
+      /*
+        Quota exhausted -> switch key
+      */
+      if (
+        error.message?.includes('429') ||
+        error.toString().includes('429')
+      ) {
+
+        attempts++;
+
+        switchToNextKey();
+
+        continue;
+      }
+
+      /*
+        Non-quota error
+      */
       return `
-AI service temporarily busy due to free-tier API limits.
-
-Please wait 1 minute and try again.
-`;
-    }
-
-    return `
 AI response generation failed.
+
 Please try again later.
 `;
+    }
   }
+
+  return `
+All AI API keys are currently exhausted.
+
+Please try again later.
+`;
 }
