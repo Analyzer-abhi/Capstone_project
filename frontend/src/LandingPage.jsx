@@ -107,10 +107,3 @@ function FeatureCard({ feature, onSelect }) {
     </button>
   );
 }
-
-      <footer className="landing-footer">
-        <p>Built for B.Tech students — your complete career growth platform</p>
-      </footer>
-    </div>
-  );
-}
