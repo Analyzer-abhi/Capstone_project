@@ -6,13 +6,21 @@ const genAI = config.geminiApiKey
   : null;
 
 export function getModel(name) {
-  if (!genAI) throw new Error('GEMINI_API_KEY is not set');
+  if (!genAI) {
+    throw new Error('GEMINI_API_KEY is not set');
+  }
+
   const modelName = name || config.geminiModel;
+
   console.log('Using Gemini model:', modelName);
-  return genAI.getGenerativeModel({ model: modelName });
+
+  return genAI.getGenerativeModel({
+    model: modelName,
+  });
 }
+
 export async function generateContent(prompt, options = {}) {
-   console.log("NEW GEMINI CLIENT DEPLOYED");
+
   try {
 
     const model = getModel(options.model);
@@ -33,14 +41,14 @@ export async function generateContent(prompt, options = {}) {
     ) {
 
       return `
-AI service is temporarily busy due to free-tier limits.
+AI service temporarily busy due to free-tier API limits.
 
-Please wait about 1 minute and try again.
+Please wait 1 minute and try again.
 `;
     }
 
     return `
-Failed to generate AI response.
+AI response generation failed.
 Please try again later.
 `;
   }

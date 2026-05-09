@@ -1,12 +1,11 @@
-import { getModel } from './geminiClient.js';
-
+//import { getModel } from './geminiClient.js';
+import { generateContent } from './geminiClient.js';
 /**
  * Agent 7: AI Interview Conductor
  */
 
 export async function startInterviewAgent({ skills, experience, jobRole, userName }) {
-  const model = getModel();
-
+  //const model = getModel();
   const prompt = `You are John, an experienced technical interviewer conducting an interview for the role of ${jobRole}.
 
 Candidate Profile:
@@ -23,9 +22,9 @@ Generate the opening message and first question. Be professional, friendly, and 
 
 Return ONLY the opening message and first question as plain text (no JSON).`;
 
-  const result = await model.generateContent(prompt);
-  const firstQuestion = result.response.text();
-
+  // const result = await model.generateContent(prompt);
+  // const firstQuestion = result.response.text();
+  const firstQuestion = await generateContent(prompt);
   return {
     firstQuestion,
     context: {
@@ -39,7 +38,7 @@ Return ONLY the opening message and first question as plain text (no JSON).`;
 }
 
 export async function continueInterviewAgent({ context, messages, jobRole }) {
-  const model = getModel();
+  // const model = getModel();
 
   const conversationHistory = messages
     .map(m => `${m.role === 'user' ? context.userName : 'John'}: ${m.content}`)
@@ -61,8 +60,10 @@ Based on ${context.userName}'s previous answer, ask the next relevant question o
 
 Return ONLY your response as plain text (no JSON).`;
 
-  const result = await model.generateContent(prompt);
-  const response = result.response.text();
+  // const result = await model.generateContent(prompt);
+  // const response = result.response.text();
+
+  const response = await generateContent(prompt);
 
   return {
     response,
@@ -71,7 +72,7 @@ Return ONLY your response as plain text (no JSON).`;
 }
 
 export async function generateInterviewReport({ messages, jobRole, skills }) {
-  const model = getModel();
+  // const model = getModel();
 
   const conversationHistory = messages
     .map(m => `${m.role === 'user' ? 'Candidate' : 'Interviewer'}: ${m.content}`)
@@ -102,8 +103,9 @@ Return ONLY valid JSON in this exact format:
   "recommendations": ["rec1", "rec2", ...]
 }`;
 
-  const result = await model.generateContent(prompt);
-  const text = result.response.text();
+  // const result = await model.generateContent(prompt);
+  // const text = result.response.text();
+  const text = await generateContent(prompt);
 
   try {
     const jsonMatch = text.match(/\{[\s\S]*\}/);
