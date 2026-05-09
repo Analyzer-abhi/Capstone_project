@@ -2553,6 +2553,40 @@
   margin: 0;
 }
 
+/* ============================================================================
+   LANDING FOOTER
+   ============================================================================ */
+
+.landing-footer {
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  animation: fadeInUp 0.8s var(--ease-smooth) backwards;
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.landing-footer p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.footer-auth-prompt {
+  color: var(--text-tertiary);
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+  animation: fadeInUp 0.6s var(--ease-smooth) 0.2s backwards;
+}
+}
+
 .report-list {
   margin: 1rem 0 0;
   padding-left: 1.5rem;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BookOpen, Briefcase, TrendingUp, MessageSquare, FileQuestion, ArrowRight } from 'lucide-react';
 
-export default function LandingPage({ onSelectFeature }) {
+export default function LandingPage({ onSelectFeature, user }) {
   const features = [
     {
       id: 'skill-gap',
@@ -68,6 +68,17 @@ export default function LandingPage({ onSelectFeature }) {
           </div>
         </section>
       </main>
+
+      <footer className="landing-footer">
+        <div className="footer-content">
+          <p>Built for B.Tech students — your complete career growth platform</p>
+          {!user && (
+            <p className="footer-auth-prompt">
+              Sign in to unlock all features and start your career journey
+            </p>
+          )}
+        </div>
+      </footer>
     </div>
   );
 }

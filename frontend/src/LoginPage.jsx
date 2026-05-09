@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2 } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2, X } from 'lucide-react';
 import './auth.css';
 
-export default function LoginPage({ onLoginSuccess }) {
+export default function LoginPage({ onLoginSuccess, onCancel }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +33,12 @@ export default function LoginPage({ onLoginSuccess }) {
       // Simulate auth request
       await new Promise(r => setTimeout(r, 2000));
       // TODO: Integrate with backend auth
-      onLoginSuccess();
+      const userData = {
+        email,
+        fullName: isSignUp ? fullName : email.split('@')[0],
+        id: Math.random().toString(36).substr(2, 9),
+      };
+      onLoginSuccess(userData);
     } catch (err) {
       setError(err.message || 'Authentication failed');
     } finally {
@@ -46,6 +51,17 @@ export default function LoginPage({ onLoginSuccess }) {
       <div className="auth-background" />
       
       <div className="auth-card">
+        {onCancel && (
+          <button
+            type="button"
+            className="auth-close-btn"
+            onClick={onCancel}
+            title="Close"
+          >
+            <X size={24} />
+          </button>
+        )}
+        
         <div className="auth-header">
           <h1>{isSignUp ? 'Create Account' : 'Welcome Back'}</h1>
           <p>{isSignUp ? 'Join our community today' : 'Sign in to your account'}</p>
