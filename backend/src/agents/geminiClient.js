@@ -8,6 +8,7 @@ const genAI = config.geminiApiKey
 export function getModel(name) {
   if (!genAI) throw new Error('GEMINI_API_KEY is not set');
   const modelName = name || config.geminiModel;
+  console.log('Using Gemini model:', modelName);
   return genAI.getGenerativeModel({ model: modelName });
 }
 
