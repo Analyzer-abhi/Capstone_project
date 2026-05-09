@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://capstone-project-1-pvmd.onrender.com/api/$1"
+    }
+  ]
+}
