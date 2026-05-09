@@ -12,6 +12,7 @@ export function getModel(name) {
   return genAI.getGenerativeModel({ model: modelName });
 }
 export async function generateContent(prompt, options = {}) {
+   console.log("NEW GEMINI CLIENT DEPLOYED");
   try {
 
     const model = getModel(options.model);
