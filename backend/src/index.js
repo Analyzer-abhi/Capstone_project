@@ -38,3 +38,6 @@ connectDb()
     console.error('Failed to start server:', err);
     process.exit(1);
   });
+  app.get('/', (_, res) => {
+  res.send('Capstone Backend Running Successfully 🚀');
+});
