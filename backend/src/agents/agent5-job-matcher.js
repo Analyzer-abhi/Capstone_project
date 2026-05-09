@@ -1,12 +1,13 @@
-import { getModel } from './geminiClient.js';
+import { generateContent } from './geminiClient.js';
 import { extractTextFromFile } from '../utils/pdfParser.js';
+
 
 /**
  * Agent 5: Extract skills and experience from resume for job matching
  */
 export async function extractResumeSkills(resumePath) {
   const resumeText = await extractTextFromFile(resumePath);
-  const model = getModel();
+
 
   const prompt = `You are a resume analyzer. Extract the following from this resume:
 1. Skills (technical and soft skills) - return as array
@@ -23,8 +24,8 @@ Return ONLY valid JSON in this exact format:
   "education": "Degree, Institution"
 }`;
 
-  const result = await model.generateContent(prompt);
-  const text = result.response.text();
+  const text = await generateContent(prompt);
+
 
   try {
     const jsonMatch = text.match(/\{[\s\S]*\}/);

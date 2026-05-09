@@ -1,6 +1,7 @@
-import { getModel } from './geminiClient.js';
+import { generateContent } from './geminiClient.js';
 import { scrapeGoogleSearch } from '../utils/scrapeDoClient.js';
 import { config } from '../config.js';
+
 
 /**
  * Agent 8: FAANG Interview Questions Provider - Fetches real questions from internet
@@ -38,7 +39,8 @@ export async function getFAANGQuestionsData(filters = {}) {
 }
 
 async function fetchRealInterviewQuestions(company, difficulty, type) {
-  const model = getModel();
+  
+
   
   console.log(`\n📡 Step 1: Building search queries for ${company}...`);
   
@@ -171,8 +173,8 @@ Return ONLY valid JSON array:
 
   try {
     console.log(`   ⏳ Sending request to Gemini AI...`);
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
+    const text = await generateContent(prompt);
+
     console.log(`   ✅ Received AI response (${text.length} characters)`);
 
     console.log(`\n🔍 Step 5: Parsing and validating questions...`);

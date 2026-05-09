@@ -1,6 +1,7 @@
-import { getModel } from './geminiClient.js';
+import { generateContent } from './geminiClient.js';
 import { scrapeGoogleSearch } from '../utils/scrapeDoClient.js';
 import { config } from '../config.js';
+
 
 const FAANG_COMPANIES = ['Facebook', 'Meta', 'Apple', 'Amazon', 'Netflix', 'Google', 'Microsoft', 'Alphabet'];
 
@@ -10,7 +11,8 @@ const FAANG_COMPANIES = ['Facebook', 'Meta', 'Apple', 'Amazon', 'Netflix', 'Goog
  * Searches across ALL job boards and company career pages
  */
 export async function searchJobsAgent({ skills, experience }) {
-  const model = getModel();
+  
+
   
   console.log('\n========================================');
   console.log('🔍 JOB SEARCH - Scanning Internet');
@@ -185,8 +187,8 @@ IMPORTANT:
 
   try {
     console.log(`   ⏳ Sending request to Gemini AI...`);
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
+    const text = await generateContent(prompt);
+
     console.log(`   ✅ Received AI response (${text.length} characters)`);
     
     console.log(`\n🔍 Step 5: Parsing and validating jobs...`);
