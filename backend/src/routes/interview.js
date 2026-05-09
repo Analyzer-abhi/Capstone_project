@@ -1,6 +1,8 @@
 import express from 'express';
-import multer from 'multer';
-import path from 'path';
+// import multer from 'multer';
+// import path from 'path';
+// Adding this line to remove the local
+import { upload } from '../middleware/upload.js';
 import { extractResumeSkills } from '../agents/agent5-job-matcher.js';
 import { startInterviewAgent, continueInterviewAgent, generateInterviewReport } from '../agents/agent7-interview.js';
 import {
@@ -12,15 +14,15 @@ import {
 
 const router = express.Router();
 
-// File upload setup
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    cb(null, `resume-${uniqueSuffix}${path.extname(file.originalname)}`);
-  },
-});
-const upload = multer({ storage });
+// // File upload setup
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => cb(null, 'uploads/'),
+//   filename: (req, file, cb) => {
+//     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+//     cb(null, `resume-${uniqueSuffix}${path.extname(file.originalname)}`);
+//   },
+// });
+// const upload = multer({ storage });
 
 // POST /api/interview/start - Start a new interview
 router.post('/start', upload.single('resume'), async (req, res) => {
