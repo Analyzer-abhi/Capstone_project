@@ -13,8 +13,22 @@ export function getModel(name) {
 }
 
 export async function generateContent(prompt, options = {}) {
-  const model = getModel(options.model);
-  const result = await model.generateContent(prompt);
-  const response = result.response;
-  return response.text();
+  try {
+    const model = getModel(options.model);
+
+    const result = await model.generateContent(prompt);
+
+    return result.response.text();
+
+  } catch (error) {
+    console.error('Gemini API Error:', error);
+
+    if (error.message?.includes('429')) {
+      throw new Error(
+        'AI usage limit reached. Please wait a minute and try again.'
+      );
+    }
+
+    throw error;
+  }
 }
