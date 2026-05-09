@@ -1,11 +1,913 @@
+/* ============================================================================
+   APP.CSS - FRAMER STYLE v2.0 COMPONENT STYLES
+   Professional animations, modern layouts, premium black & white theme
+   ============================================================================ */
+
+/* ============================================================================
+   APP LAYOUT
+   ============================================================================ */
+
 .app {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================================
+   HEADER & NAVIGATION
+   ============================================================================ */
+
+.header {
+  text-align: center;
+  padding: 3rem 2rem;
+  margin-bottom: 3rem;
+  animation: fadeInDown 0.8s ease-out backwards;
+  position: relative;
+  z-index: 10;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.logo svg {
+  width: 40px;
+  height: 40px;
+  color: var(--text-primary);
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 8px 20px rgba(255, 255, 255, 0.15));
+}
+
+.header h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0 0 1rem;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 1) 0%, 
+    rgba(255, 255, 255, 0.85) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.03em;
+}
+
+.tagline {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 700px;
+  margin: 0 auto;
+  animation: fadeInUp 0.7s var(--ease-smooth) 0.2s backwards;
+  line-height: 1.8;
+}
+
+.back-home-btn {
+  position: absolute;
+  top: 2rem;
+  left: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 10px 16px;
+  background: var(--surface-light);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+  z-index: 100;
+}
+
+.back-home-btn:hover {
+  background: var(--surface-hover);
+  transform: translateX(-4px);
+  border-color: var(--text-secondary);
+}
+
+/* ============================================================================
+   LANDING PAGE
+   ============================================================================ */
+
+.landing-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.8s var(--ease-smooth);
+}
+
+.landing-header {
+  text-align: center;
+  padding: 5rem 2rem 3rem;
+  animation: fadeInDown 0.9s var(--ease-smooth) backwards;
+}
+
+.logo-large {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.logo-large svg {
+  width: 72px;
+  height: 72px;
+  color: var(--text-primary);
+  animation: bounce 3s ease-in-out infinite;
+  filter: drop-shadow(0 20px 40px rgba(255, 255, 255, 0.15));
+}
+
+.landing-header h1 {
+  font-size: 4.5rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.landing-tagline {
+  font-size: 1.35rem;
+  color: var(--text-secondary);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.landing-main {
+  flex: 1;
+  padding: 3rem 2rem;
+}
+
+.feature-section {
+  margin-bottom: 6rem;
+  animation: fadeInUp 0.8s var(--ease-smooth) backwards;
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0 0 3rem;
+  text-align: center;
+  color: var(--text-primary);
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  border-radius: 2px;
+}
+
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.feature-card {
+  background: var(--surface);
+  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  cursor: pointer;
+  transition: all 0.4s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.6s var(--ease-smooth) backwards;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.feature-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, 
+    rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.feature-card:hover {
+  background: var(--surface-light);
+  border-color: var(--border-heavy);
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-xl);
+}
+
+.feature-card:hover::before,
+.feature-card:hover::after {
+  opacity: 1;
+}
+
+.feature-icon {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  margin-bottom: 2rem;
+  transition: all 0.4s var(--ease-smooth);
+  animation: scaleIn 0.6s var(--ease-smooth) backwards;
+}
+
+.feature-icon svg {
+  width: 40px;
+  height: 40px;
+  color: var(--text-primary);
+  stroke-width: 1.5;
+}
+
+.feature-card:hover .feature-icon {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.15);
+}
+
+.feature-card h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: var(--text-primary);
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  margin: 0 0 1.75rem;
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+.feature-list {
+  list-style: none;
+  margin: 1.5rem 0;
+  padding: 0;
+  flex: 1;
+}
+
+.feature-list li {
+  color: var(--text-tertiary);
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.feature-list li::before {
+  content: '✓';
+  color: var(--success);
+  font-weight: 700;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.feature-btn {
+  align-self: flex-start;
+  padding: 12px 24px;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+  margin-top: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.feature-btn:hover {
+  transform: translateX(4px);
+  box-shadow: 0 12px 28px rgba(255, 255, 255, 0.2);
+}
+
+.feature-btn:hover::before {
+  opacity: 1;
+}
+
+/* ============================================================================
+   FORM SECTIONS
+   ============================================================================ */
+
+.main {
+  flex: 1;
+}
+
+.form-card {
+  background: var(--surface);
+  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  margin-bottom: 2.5rem;
+  animation: fadeInUp 0.7s var(--ease-smooth) backwards;
+}
+
+.form-card h2 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.form-row {
+  margin-bottom: 1.75rem;
+}
+
+.form-row:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.label svg {
+  width: 18px;
+  height: 18px;
+}
+
+.input-group {
+  position: relative;
+}
+
+.dropzone {
+  border: 2px dashed var(--border-heavy);
+  border-radius: var(--radius-lg);
+  padding: 3.5rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+  background: rgba(255, 255, 255, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.dropzone::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.dropzone:hover, .dropzone.active {
+  border-color: var(--text-secondary);
+  background: var(--surface-light);
+  transform: scale(1.02);
+  box-shadow: var(--shadow);
+}
+
+.dropzone:hover::before, .dropzone.active::before {
+  opacity: 1;
+}
+
+.dropzone.has-file {
+  border-style: solid;
+  border-color: var(--success);
+  background: var(--success-light);
+}
+
+.dropzone svg {
+  width: 56px;
+  height: 56px;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  opacity: 0.7;
+  transition: all 0.3s;
+}
+
+.dropzone:hover svg, .dropzone.active svg {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.file-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.9rem;
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  background: var(--error-light);
+  border-left: 3px solid var(--error);
+  border-radius: 8px;
+  animation: slideInRight 0.4s var(--ease-smooth);
+}
+
+.success-message {
+  color: var(--success);
+  font-size: 0.9rem;
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  background: var(--success-light);
+  border-left: 3px solid var(--success);
+  border-radius: 8px;
+  animation: slideInRight 0.4s var(--ease-smooth);
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.actions .btn {
+  flex: 1;
+  min-width: 140px;
+}
+
+/* ============================================================================
+   LOADING STATES
+   ============================================================================ */
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 1.5rem;
+}
+
+.loading-state svg {
+  width: 48px;
+  height: 48px;
+  color: var(--text-secondary);
+  animation: spin 2s linear infinite;
+}
+
+.loading-state p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+/* ============================================================================
+   ROADMAP & SECTIONS
+   ============================================================================ */
+
+.roadmap-view, .job-search-view, .resume-builder-view, .ai-interview-view, .faang-questions-view {
+  animation: fadeInUp 0.7s var(--ease-smooth) backwards;
+}
+
+.roadmap-header, .job-search-header, .resume-builder-header, .ai-interview-header {
+  margin-bottom: 2.5rem;
+}
+
+.roadmap-header h2, .job-search-header h2, .resume-builder-header h2, .ai-interview-header h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.meta {
+  color: var(--text-tertiary);
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.summary {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 1rem 0;
+}
+
+.progress-meta {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.section h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section h3 svg {
+  width: 28px;
+  height: 28px;
+  color: var(--text-secondary);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--surface-lighter);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  animation: scaleIn 0.4s var(--ease-smooth) backwards;
+}
+
+.tag.has {
+  background: var(--success-light);
+  border-color: var(--success);
+  color: var(--success);
+  font-weight: 600;
+}
+
+.tag.missing {
+  background: var(--error-light);
+  border-color: var(--error);
+  color: var(--error);
+  font-weight: 600;
+}
+
+/* ============================================================================
+   PHASE CARDS
+   ============================================================================ */
+
+.phase-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  transition: all 0.3s var(--ease-smooth);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.phase-header {
+  padding: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.phase-header:hover {
+  background: var(--surface-light);
+}
+
+.phase-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border-heavy);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s var(--ease-smooth);
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.phase-checkbox:hover {
+  border-color: var(--text-secondary);
+  background: var(--surface-hover);
+}
+
+.phase-checkbox.checked {
+  background: var(--success);
+  border-color: var(--success);
+  color: #000000;
+  font-weight: 700;
+}
+
+.phase-title {
+  flex: 1;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.phase-badge {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background: var(--info-light);
+  color: var(--info);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.phase-content {
+  display: none;
+  padding: 0 1.75rem 1.75rem;
+  border-top: 1px solid var(--border);
+  animation: slideDown 0.3s var(--ease-smooth);
+}
+
+.phase-content.open {
+  display: block;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================================
+   JOB CARDS
+   ============================================================================ */
+
+.job-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.job-card:hover {
+  background: var(--surface-light);
+  border-color: var(--border-heavy);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.job-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.3rem;
+}
+
+.job-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.match-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--success-light);
+  color: var(--success);
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ============================================================================
+   INTERVIEW COMPONENTS
+   ============================================================================ */
+
+.interview-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.interview-chat {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  gap: 1rem;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chat-message {
+  display: flex;
+  gap: 0.75rem;
+  animation: fadeInUp 0.3s var(--ease-smooth);
+}
+
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+.chat-bubble {
+  max-width: 70%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  line-height: 1.6;
+}
+
+.chat-message.assistant .chat-bubble {
+  background: var(--surface-light);
+  border: 1px solid var(--border);
+}
+
+.chat-message.user .chat-bubble {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border-radius: 12px 0 12px 12px;
+}
+
+.chat-input {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.chat-input input {
+  flex: 1;
+}
+
+.chat-input button {
+  padding: 0.875rem 1.5rem;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.chat-input button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .app {
+    padding: 0;
+  }
+
+  .app-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .header {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .header h1 {
+    font-size: 2.25rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+  }
+
+  .landing-header {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .logo-large svg {
+    width: 56px;
+    height: 56px;
+  }
+
+  .landing-header h1 {
+    font-size: 2.75rem;
+  }
+
+  .landing-tagline {
+    font-size: 1rem;
+  }
+
+  .feature-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-card {
+    padding: 1.5rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions .btn {
+    width: 100%;
+  }
+
+  .back-home-btn {
+    position: static;
+    width: fit-content;
+    margin-bottom: 1rem;
+  }
+
+  .header h2,
+  .landing-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .chat-bubble {
+    max-width: 90%;
+  }
+}
+
 
 .header {
   text-align: center;
