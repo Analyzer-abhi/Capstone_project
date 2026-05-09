@@ -11,7 +11,6 @@ export function getModel(name) {
   console.log('Using Gemini model:', modelName);
   return genAI.getGenerativeModel({ model: modelName });
 }
-
 export async function generateContent(prompt, options = {}) {
   try {
     const model = getModel(options.model);
@@ -21,14 +20,16 @@ export async function generateContent(prompt, options = {}) {
     return result.response.text();
 
   } catch (error) {
+
     console.error('Gemini API Error:', error);
 
     if (error.message?.includes('429')) {
+
       throw new Error(
-        'AI usage limit reached. Please wait a minute and try again.'
+        'AI is temporarily busy. Please wait 30 seconds and try again.'
       );
     }
 
-    throw error;
+    throw new Error('Failed to generate AI response');
   }
 }
