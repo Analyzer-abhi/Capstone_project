@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, LogOut, User, Settings, BookOpen, Home, LogIn } from 'lucide-react';
+import { Menu, X, LogOut, User, Settings, BookOpen, Home, LogIn, Target, MessageSquare, FileQuestion } from 'lucide-react';
 import './navbar.css';
 
 export default function Navbar({ user, onLogout, onNavigate, onLogin }) {
@@ -9,6 +9,10 @@ export default function Navbar({ user, onLogout, onNavigate, onLogin }) {
   const navLinks = [
     { id: 'home', label: 'Home', icon: Home },
     { id: 'skill-gap', label: 'Skill Analysis', icon: BookOpen },
+    { id: 'job-search', label: 'Job Search', icon: Target },
+    { id: 'ai-interview', label: 'AI Interview', icon: MessageSquare },
+    { id: 'faang-questions', label: 'FAANG Bank', icon: FileQuestion },
+    ...(user ? [{ id: 'profile', label: 'Profile', icon: User }] : []),
   ];
 
   const handleNavClick = (id) => {
@@ -28,7 +32,7 @@ export default function Navbar({ user, onLogout, onNavigate, onLogin }) {
         {/* Logo */}
         <button className="navbar-logo" onClick={() => handleNavClick('home')}>
           <BookOpen size={28} strokeWidth={1.5} />
-          <span>Career Accelerator</span>
+          <span>PathForge AI</span>
         </button>
 
         {/* Desktop Navigation */}
@@ -52,43 +56,46 @@ export default function Navbar({ user, onLogout, onNavigate, onLogin }) {
               <button
                 className="profile-button"
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
+                aria-label="Open profile menu"
               >
                 <div className="profile-avatar">
                   {user.fullName?.charAt(0).toUpperCase() || 'U'}
                 </div>
-                <span className="profile-name">{user.fullName || 'User'}</span>
               </button>
 
               {isProfileOpen && (
-                <div className="profile-menu">
-                  <div className="profile-header">
-                    <div className="profile-avatar-large">
-                      {user.fullName?.charAt(0).toUpperCase() || 'U'}
+                <>
+                  <div className="profile-drawer">
+                    <div className="drawer-header">
+                      <div className="drawer-avatar">
+                        {user.fullName?.charAt(0).toUpperCase() || 'U'}
+                      </div>
+                      <div className="drawer-user">
+                        <p className="drawer-name">{user.fullName || 'User'}</p>
+                        <p className="drawer-status">Account settings</p>
+                      </div>
+                      <button className="drawer-close" onClick={() => setIsProfileOpen(false)} aria-label="Close profile panel">
+                        <X size={18} />
+                      </button>
                     </div>
-                    <div>
-                      <p className="profile-email">{user.email}</p>
-                      <p className="profile-fullname">{user.fullName || 'User'}</p>
+
+                    <div className="drawer-links">
+                      <button className="drawer-link" onClick={() => { onNavigate('profile'); setIsProfileOpen(false); }}>
+                        <User size={18} />
+                        Profile
+                      </button>
+                      <button className="drawer-link" onClick={() => setIsProfileOpen(false)}>
+                        <Settings size={18} />
+                        Settings
+                      </button>
+                      <button className="drawer-link logout-btn" onClick={handleLogout}>
+                        <LogOut size={18} />
+                        Sign Out
+                      </button>
                     </div>
                   </div>
-
-                  <div className="profile-menu-divider"></div>
-
-                  <button className="profile-menu-item">
-                    <User size={18} />
-                    View Profile
-                  </button>
-                  <button className="profile-menu-item">
-                    <Settings size={18} />
-                    Settings
-                  </button>
-
-                  <div className="profile-menu-divider"></div>
-
-                  <button className="profile-menu-item logout-btn" onClick={handleLogout}>
-                    <LogOut size={18} />
-                    Sign Out
-                  </button>
-                </div>
+                  <div className="backdrop" onClick={() => setIsProfileOpen(false)} />
+                </>
               )}
             </div>
           ) : (

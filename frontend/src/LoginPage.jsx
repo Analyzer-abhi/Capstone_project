@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2, X } from 'lucide-react';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  updateProfile,
+} from 'firebase/auth';
+import { auth } from './firebase';
+import { saveUserProfile } from './firebaseHelpers';
 import './auth.css';
 
 export default function LoginPage({ onLoginSuccess, onCancel }) {
@@ -16,31 +25,62 @@ export default function LoginPage({ onLoginSuccess, onCancel }) {
     e.preventDefault();
     setError('');
 
-    if (!email || !password) {
-      setError('Please fill in all fields');
+    if (!email || !password || (isSignUp && !fullName)) {
+      setError('Please fill in all required fields.');
       return;
     }
 
-    if (isSignUp) {
-      if (!fullName || password !== confirmPassword) {
-        setError('Please check your information');
-        return;
-      }
+    if (isSignUp && password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
     }
 
     setLoading(true);
     try {
-      // Simulate auth request
-      await new Promise(r => setTimeout(r, 2000));
-      // TODO: Integrate with backend auth
-      const userData = {
-        email,
-        fullName: isSignUp ? fullName : email.split('@')[0],
-        id: Math.random().toString(36).substr(2, 9),
-      };
-      onLoginSuccess(userData);
+      let userCredential;
+
+      if (isSignUp) {
+        userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(userCredential.user, { displayName: fullName });
+      } else {
+        userCredential = await signInWithEmailAndPassword(auth, email, password);
+      }
+
+      const fbUser = userCredential.user;
+      
+      // Save user profile to Firestore
+      await saveUserProfile(fbUser);
+
+      onLoginSuccess({
+        uid: fbUser.uid,
+        email: fbUser.email,
+        fullName: fbUser.displayName || fbUser.email?.split('@')[0],
+      });
     } catch (err) {
       setError(err.message || 'Authentication failed');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleGoogleSignIn() {
+    setError('');
+    setLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const fbUser = result.user;
+      
+      // Save user profile to Firestore
+      await saveUserProfile(fbUser);
+
+      onLoginSuccess({
+        uid: fbUser.uid,
+        email: fbUser.email,
+        fullName: fbUser.displayName || fbUser.email?.split('@')[0],
+      });
+    } catch (err) {
+      setError(err.message || 'Google sign-in failed');
     } finally {
       setLoading(false);
     }
@@ -166,8 +206,12 @@ export default function LoginPage({ onLoginSuccess, onCancel }) {
         </div>
 
         <div className="oauth-buttons">
-          <button className="oauth-btn">Google</button>
-          <button className="oauth-btn">GitHub</button>
+          <button type="button" className="oauth-btn" onClick={handleGoogleSignIn} disabled={loading}>
+            Continue with Google
+          </button>
+          <button type="button" className="oauth-btn oauth-btn-disabled" disabled>
+            GitHub (soon)
+          </button>
         </div>
 
         <div className="auth-footer">

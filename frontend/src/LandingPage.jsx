@@ -43,7 +43,7 @@ export default function LandingPage({ onSelectFeature, user }) {
         <div className="logo-large">
           <BookOpen size={56} strokeWidth={1.5} />
           <div>
-            <h1>Career Accelerator</h1>
+            <h1>PathForge AI</h1>
             <p className="landing-tagline">Your AI-powered companion for career growth — from skill gaps to job offers</p>
           </div>
         </div>

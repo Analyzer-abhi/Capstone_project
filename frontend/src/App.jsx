@@ -3,7 +3,11 @@ import './App.css';
 import { useDropzone } from 'react-dropzone';
 import { Upload, Target, Loader2, BookOpen } from 'lucide-react';
 import { analyzeResume } from './api';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from './firebase';
+import { saveUserProfile } from './firebaseHelpers';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import LandingPage from './LandingPage';
 import LoginPage from './LoginPage';
 import RoadmapView from './RoadmapView';
@@ -11,14 +15,33 @@ import ResumeBuilderView from './ResumeBuilderView';
 import JobSearchView from './JobSearchView';
 import AIInterviewView from './AIInterviewView';
 import FAANGQuestionsView from './FAANGQuestionsView';
+import ProfileView from './ProfileView';
 
 export default function App() {
   // Authentication state
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+  const [user, setUser] = useState(null);
   const [isAuthMode, setIsAuthMode] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (fbUser) => {
+      if (fbUser) {
+        setUser({
+          uid: fbUser.uid,
+          email: fbUser.email,
+          fullName: fbUser.displayName || fbUser.email?.split('@')[0],
+        });
+        
+        // Persist user profile to Firestore (updates lastLogin for returning users)
+        saveUserProfile(fbUser).catch((err) => {
+          console.error('Failed to save user profile in App.jsx:', err);
+        });
+      } else {
+        setUser(null);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   // Navigation state
   const [currentFeature, setCurrentFeature] = useState(null);
@@ -40,22 +63,19 @@ export default function App() {
     onDrop: (accepted) => setFile(accepted[0] || null),
   });
 
-  // Save user to localStorage when changed
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
-    } else {
-      localStorage.removeItem('user');
-    }
-  }, [user]);
-
   const handleLoginSuccess = (userData) => {
     setUser(userData);
     setIsAuthMode(false);
     setCurrentFeature(null);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.warn('Logout failed', err);
+    }
+
     setUser(null);
     setCurrentFeature(null);
     setFile(null);
@@ -63,7 +83,13 @@ export default function App() {
     setResult(null);
     setView('roadmap');
     setError('');
-    localStorage.removeItem('user');
+  };
+
+  const handleProfileSave = (updates) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      ...updates,
+    }));
   };
 
   const handleNavigate = (featureId) => {
@@ -74,9 +100,15 @@ export default function App() {
       setResult(null);
       setView('roadmap');
       setError('');
-    } else {
-      setCurrentFeature(featureId);
+      return;
     }
+
+    if (!user) {
+      setIsAuthMode(true);
+      return;
+    }
+
+    setCurrentFeature(featureId);
   };
 
   const handleOpenAuth = () => {
@@ -124,6 +156,7 @@ export default function App() {
           onLogin={handleOpenAuth}
         />
         <LoginPage onLoginSuccess={handleLoginSuccess} onCancel={() => setIsAuthMode(false)} />
+        <Footer />
       </>
     );
   }
@@ -142,6 +175,7 @@ export default function App() {
           onSelectFeature={user ? setCurrentFeature : () => setIsAuthMode(true)}
           user={user}
         />
+        <Footer />
       </>
     );
   }
@@ -157,6 +191,7 @@ export default function App() {
           onLogin={handleOpenAuth}
         />
         <JobSearchView onBack={handleBackToLanding} />
+        <Footer />
       </>
     );
   }
@@ -172,6 +207,7 @@ export default function App() {
           onLogin={handleOpenAuth}
         />
         <AIInterviewView onBack={handleBackToLanding} />
+        <Footer />
       </>
     );
   }
@@ -187,6 +223,23 @@ export default function App() {
           onLogin={handleOpenAuth}
         />
         <FAANGQuestionsView onBack={handleBackToLanding} />
+        <Footer />
+      </>
+    );
+  }
+
+  // Profile page
+  if (currentFeature === 'profile') {
+    return (
+      <>
+        <Navbar 
+          user={user} 
+          onLogout={handleLogout} 
+          onNavigate={handleNavigate}
+          onLogin={handleOpenAuth}
+        />
+        <ProfileView user={user} onBack={handleBackToLanding} onProfileSave={handleProfileSave} />
+        <Footer />
       </>
     );
   }
@@ -263,6 +316,7 @@ export default function App() {
           ) : null}
         </main>
       </div>
+      <Footer />
     </>
   );
 }
