@@ -8,6 +8,7 @@ import roadmapRoutes from './routes/roadmap.js';
 import jobsRoutes from './routes/jobs.js';
 import interviewRoutes from './routes/interview.js';
 import faangQuestionsRoutes from './routes/faangQuestions.js';
+import authRoutes from './routes/auth.js';
 import { uploadDir } from './middleware/upload.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -17,6 +18,7 @@ app.use(cors({ origin: config.frontendUrl, credentials: true }));
 app.use(express.json());
 app.use('/uploads', express.static(uploadDir));
 
+app.use('/api/auth', authRoutes);
 app.use('/api/roadmap', roadmapRoutes);
 app.use('/api/jobs', jobsRoutes);
 app.use('/api/interview', interviewRoutes);

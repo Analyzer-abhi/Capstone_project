@@ -1,106 +1,120 @@
 import React from 'react';
-import { BookOpen, Briefcase, TrendingUp, Bell, MessageSquare, FileQuestion } from 'lucide-react';
+import { BookOpen, Briefcase, TrendingUp, MessageSquare, FileQuestion, ArrowRight } from 'lucide-react';
 
-export default function LandingPage({ onSelectFeature }) {
+export default function LandingPage({ onSelectFeature, user }) {
+  const features = [
+    {
+      id: 'skill-gap',
+      icon: TrendingUp,
+      title: 'Skill-Gap Analysis',
+      description: 'Upload your resume and target job title. Get a personalized learning roadmap, track your progress, and build an ATS-optimized resume.',
+      items: ['AI-powered skill extraction', 'Customized learning roadmap', 'Progress tracking', 'Tailored resume builder'],
+      cta: 'Get Started'
+    },
+    {
+      id: 'job-search',
+      icon: Briefcase,
+      title: 'Job Search & Alerts',
+      description: 'Upload your updated resume to find matching jobs. Set up alerts for FAANG companies and get notified instantly when new opportunities arise.',
+      items: ['Smart job matching', 'FAANG job alerts', 'Email notifications', 'Real-time updates'],
+      cta: 'Explore Jobs'
+    },
+    {
+      id: 'ai-interview',
+      icon: MessageSquare,
+      title: 'AI Interview Chat',
+      description: 'Practice real-time interviews with AI. Upload your resume, select a job role, and get personalized questions. Receive detailed feedback after completion.',
+      items: ['Resume-based questions', 'Role-specific scenarios', 'Real-time chat interface', 'Detailed performance report'],
+      cta: 'Start Practice'
+    },
+    {
+      id: 'faang-questions',
+      icon: FileQuestion,
+      title: 'FAANG Interview Bank',
+      description: 'Access real interview questions from top tech companies. Browse questions by company, difficulty, and topic to prepare effectively.',
+      items: ['Company-specific questions', 'Online assessment problems', 'Difficulty levels', 'Topic categorization'],
+      cta: 'Browse Questions'
+    }
+  ];
+
   return (
     <div className="landing-page">
       <header className="landing-header">
         <div className="logo-large">
-          <BookOpen size={48} strokeWidth={2} />
-          <h1>Career Accelerator</h1>
+          <BookOpen size={56} strokeWidth={1.5} />
+          <div>
+            <h1>PathForge AI</h1>
+            <p className="landing-tagline">Your AI-powered companion for career growth — from skill gaps to job offers</p>
+          </div>
         </div>
-        <p className="landing-tagline">
-          Your AI-powered companion for career growth — from skill gaps to job offers
-        </p>
       </header>
 
       <main className="landing-main">
         <section className="feature-section">
           <h2 className="section-title">Career Development</h2>
           <div className="feature-cards">
-            <div className="feature-card" onClick={() => onSelectFeature('skill-gap')}>
-              <div className="feature-icon">
-                <TrendingUp size={40} />
-              </div>
-              <h2>Skill-Gap Analysis</h2>
-              <p>
-                Upload your resume and target job title. Get a personalized learning roadmap,
-                track your progress, and build an ATS-optimized resume.
-              </p>
-              <ul className="feature-list">
-                <li>AI-powered skill extraction</li>
-                <li>Customized learning roadmap</li>
-                <li>Progress tracking</li>
-                <li>Tailored resume builder</li>
-              </ul>
-              <button className="feature-btn">Get Started →</button>
-            </div>
-
-            <div className="feature-card" onClick={() => onSelectFeature('job-search')}>
-              <div className="feature-icon">
-                <Briefcase size={40} />
-              </div>
-              <h2>Job Search & Alerts</h2>
-              <p>
-                Upload your updated resume to find matching jobs. Set up alerts for FAANG
-                companies and get notified instantly when new opportunities arise.
-              </p>
-              <ul className="feature-list">
-                <li>Smart job matching</li>
-                <li>FAANG job alerts</li>
-                <li>Email notifications</li>
-                <li>Real-time updates</li>
-              </ul>
-              <button className="feature-btn">Explore Jobs →</button>
-            </div>
+            {features.slice(0, 2).map((feature) => (
+              <FeatureCard key={feature.id} feature={feature} onSelect={onSelectFeature} />
+            ))}
           </div>
         </section>
 
         <section className="feature-section">
           <h2 className="section-title">Interview Preparation</h2>
           <div className="feature-cards">
-            <div className="feature-card" onClick={() => onSelectFeature('ai-interview')}>
-              <div className="feature-icon feature-icon-gradient-2">
-                <MessageSquare size={40} />
-              </div>
-              <h2>AI Interview Chat</h2>
-              <p>
-                Practice real-time interviews with AI. Upload your resume, select a job role,
-                and get personalized questions. Receive detailed feedback after completion.
-              </p>
-              <ul className="feature-list">
-                <li>Resume-based questions</li>
-                <li>Role-specific scenarios</li>
-                <li>Real-time chat interface</li>
-                <li>Detailed performance report</li>
-              </ul>
-              <button className="feature-btn">Start Practice →</button>
-            </div>
-
-            <div className="feature-card" onClick={() => onSelectFeature('faang-questions')}>
-              <div className="feature-icon feature-icon-gradient-2">
-                <FileQuestion size={40} />
-              </div>
-              <h2>FAANG Interview Bank</h2>
-              <p>
-                Access real interview questions from top tech companies. Browse questions
-                by company, difficulty, and topic to prepare effectively.
-              </p>
-              <ul className="feature-list">
-                <li>Company-specific questions</li>
-                <li>Online assessment problems</li>
-                <li>Difficulty levels</li>
-                <li>Topic categorization</li>
-              </ul>
-              <button className="feature-btn">Browse Questions →</button>
-            </div>
+            {features.slice(2).map((feature) => (
+              <FeatureCard key={feature.id} feature={feature} onSelect={onSelectFeature} />
+            ))}
           </div>
         </section>
       </main>
 
       <footer className="landing-footer">
-        <p>Built for B.Tech students — your complete career growth platform</p>
+        <div className="footer-content">
+          <p>Built for B.Tech students — your complete career growth platform</p>
+          {!user && (
+            <p className="footer-auth-prompt">
+              Sign in to unlock all features and start your career journey
+            </p>
+          )}
+        </div>
       </footer>
     </div>
+  );
+}
+
+function FeatureCard({ feature, onSelect }) {
+  const Icon = feature.icon;
+  return (
+    <button
+      type="button"
+      className="feature-card-btn"
+      onClick={() => onSelect(feature.id)}
+    >
+      <div className="feature-card">
+        <div className="feature-card-header">
+          <div className="feature-icon">
+            <Icon size={44} strokeWidth={1.5} />
+          </div>
+          <h3>{feature.title}</h3>
+        </div>
+
+        <p className="feature-description">{feature.description}</p>
+
+        <ul className="feature-list">
+          {feature.items.map((item) => (
+            <li key={item}>
+              <span className="checkmark">✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="feature-cta">
+          <span className="cta-text">{feature.cta}</span>
+          <ArrowRight size={18} className="cta-arrow" />
+        </div>
+      </div>
+    </button>
   );
 }
