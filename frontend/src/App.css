@@ -841,20 +841,27 @@ body {
   flex: 1;
 }
 
-.chat-input button {
-  padding: 0.875rem 1.5rem;
+.chat-send-btn {
+  padding: 0.875rem 1rem;
   background: var(--text-primary);
   color: var(--bg-primary);
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s var(--ease-smooth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
 }
 
-.chat-input button:hover {
+.chat-send-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
+  background: var(--text-secondary);
 }
 
 /* ============================================================================
@@ -1052,6 +1059,44 @@ body {
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
   background: rgba(255, 255, 255, 0.9);
   transform: translateY(-1px);
+}
+
+/* Select dropdown styling */
+.input[type="select"],
+select.input {
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+.input[type="select"] option,
+select.input option {
+  background: var(--surface);
+  color: var(--text);
+  padding: 0.5rem;
+}
+
+.input[type="select"] option:hover,
+.input[type="select"] option:focus,
+select.input option:hover,
+select.input option:focus {
+  background: var(--surface-hover);
+}
+
+.input[type="select"] option:checked,
+.input[type="select"] option:active,
+select.input option:checked,
+select.input option:active {
+  background: var(--text-primary);
+  color: var(--bg-primary);
 }
 
 .dropzone {
@@ -1785,13 +1830,153 @@ body {
               radial-gradient(circle at bottom left, rgba(255,255,255,0.06), transparent 28%);
 }
 
+.profile-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.profile-page-heading {
+  max-width: 780px;
+}
+
+.page-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.profile-page-heading h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2rem, 2.4vw, 2.9rem);
+  line-height: 1.05;
+}
+
+.profile-page-heading p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 680px;
+}
+
+.profile-main-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 400px) minmax(420px, 1fr);
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 2.5rem;
+}
+
+.profile-details-card,
+.profile-form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-xl);
+  transition: all 0.4s var(--ease-smooth);
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-details-card:hover,
+.profile-form-card:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-heavy);
+}
+
+.profile-summary-card {
+  min-height: 520px;
+  justify-content: space-between;
+}
+
+.profile-form-card {
+  min-height: 520px;
+}
+
+.profile-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex: 1;
+}
+
+.profile-info-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.profile-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile-info-item span:first-child {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.profile-info-item span:last-child {
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.profile-card-top {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.profile-details-card h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.profile-form-card .btn {
+  margin-top: auto;
+}
+
+.profile-form input,
+.profile-form textarea {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.profile-form textarea {
+  min-height: 130px;
+}
+
 .profile-header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 2rem;
-  align-items: flex-start;
+  align-items: stretch;
   margin-bottom: 3rem;
+}
+
+.profile-details-card,
+.profile-form-card {
+  display: flex;
+  flex-direction: column;
 }
 
 .profile-details-card {
@@ -1988,38 +2173,146 @@ body {
   padding: 2rem 1.5rem;
 }
 
-.view-header {
-  text-align: center;
-  margin-bottom: 2.5rem;
+.view-header,
+.section-header {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto 2.5rem;
+  padding: 2.5rem 0 2rem;
+  background: transparent;
+  max-width: 760px;
+}
+
+.view-header::after,
+.section-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
 }
 
 .view-header .btn-ghost {
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 1rem;
+  top: 1rem;
   margin: 0;
+  color: var(--text-secondary);
+  opacity: 0.95;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.section-header .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+  align-self: flex-start;
+  margin: 0 0 1.5rem 0;
+  position: static;
+}
+
+.section-header .btn-ghost:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-heavy);
+  color: var(--text-primary);
+  transform: translateX(-4px);
 }
 
 .view-header h1 {
   font-size: 2rem;
-  font-weight: 700;
-  margin: 0 0 0.5rem;
+  font-weight: 900;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeInDown 0.9s ease-out backwards;
 }
 
 .view-header p {
-  color: var(--text-muted);
+  max-width: 700px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.65;
   margin: 0;
+  font-size: 0.96rem;
+  animation: fadeInUp 0.9s ease-out 0.15s backwards;
+}
+
+.view-header .btn-ghost {
+  animation: fadeInDown 0.9s ease-out backwards;
+}
+
+@media (max-width: 768px) {
+  .view-header {
+    padding: 2.5rem 0 1.5rem;
+  }
+
+  .view-header .btn-ghost,
+  .section-header .btn-ghost {
+    position: static;
+    align-self: flex-start;
+    margin: 0 0 1rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .view-header {
+    padding: 1.5rem 1rem;
+  }
+
+  .view-header .btn-ghost {
+    position: static;
+    width: fit-content;
+  }
 }
 
 .upload-card {
-  max-width: 500px;
+  max-width: 900px;
   margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  gap: 1.5rem;
 }
 
 .upload-card h2 {
   font-size: 1.5rem;
   margin: 0 0 0.5rem;
+}
+
+.interview-setup-card {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.interview-setup-card .form-row {
+  margin-bottom: 0;
+}
+
+.upload-card button,
+.interview-setup-card button {
+  margin-top: 0.5rem;
 }
 
 .card-subtitle {
@@ -2432,12 +2725,6 @@ body {
   gap: 0.5rem;
 }
 
-.back-home-btn {
-  position: absolute;
-  left: 1.5rem;
-  top: 2rem;
-}
-
 @media (max-width: 768px) {
   .landing-header h1 {
     font-size: 2rem;
@@ -2468,14 +2755,22 @@ body {
 
 /* AI Interview View */
 .ai-interview-view {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
 
 .interview-setup-card {
-  max-width: 600px;
+  max-width: 900px;
+  width: 100%;
   margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.interview-setup-card .form-row {
+  margin-bottom: 0;
 }
 
 .interview-info {
@@ -2703,22 +2998,25 @@ body {
   padding: 1rem 1.5rem;
   border-top: 1px solid var(--border);
   background: var(--surface-hover);
+  align-items: center;
 }
 
 .chat-input {
   flex: 1;
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1rem;
   border: 1.5px solid var(--border);
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 1rem;
   background: var(--surface);
   color: var(--text);
   transition: border-color 0.2s;
+  min-height: 48px;
 }
 
 .chat-input:focus {
   outline: none;
-  border-color: var(--accent);
+  border-color: var(--text-secondary);
+  background: var(--surface-light);
 }
 
 .interview-end-actions {

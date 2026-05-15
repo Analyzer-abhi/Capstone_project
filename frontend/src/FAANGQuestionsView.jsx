@@ -100,13 +100,16 @@ export default function FAANGQuestionsView({ onBack }) {
 
   return (
     <div className="faang-questions-view">
-      <div className="view-header">
-        <button className="btn btn-ghost" onClick={onBack}>
-          ← Back to Home
+      <header className="header section-header">
+        <button className="btn btn-ghost back-home-btn" onClick={onBack}>
+          ← Home
         </button>
-        <h1>FAANG Interview Questions</h1>
-        <p>Real interview questions from top tech companies</p>
-      </div>
+        <div className="logo">
+          <BookOpen size={28} strokeWidth={2} />
+          <h1>FAANG Interview Question Bank</h1>
+        </div>
+        <p className="tagline">Explore real interview questions, sharpen your problem solving, and practice the types of prompts recruiters ask at top tech firms.</p>
+      </header>
 
       <div className="questions-filters-card card">
         <div className="search-bar">

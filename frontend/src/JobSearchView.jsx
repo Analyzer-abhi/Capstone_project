@@ -105,16 +105,19 @@ export default function JobSearchView({ onBack }) {
 
   return (
     <div className="job-search-view">
-      <div className="view-header">
-        <button className="btn btn-ghost" onClick={onBack}>
-          ← Back to Home
+      <header className="header section-header">
+        <button className="btn btn-ghost back-home-btn" onClick={onBack}>
+          ← Home
         </button>
-        <h1>Job Search & FAANG Alerts</h1>
-        <p>Upload your resume to find matching jobs and setup alerts</p>
-      </div>
+        <div className="logo">
+          <Briefcase size={28} strokeWidth={2} />
+          <h1>Job Search & FAANG Alerts</h1>
+        </div>
+        <p className="tagline">Upload your resume, discover matching roles, and stay ahead with alerts for top tech company openings.</p>
+      </header>
 
       {!resumeUploaded ? (
-        <form className="card upload-card" onSubmit={handleUploadResume}>
+        <form className="card form-card upload-card" onSubmit={handleUploadResume}>
           <h2>Upload Your Resume</h2>
           <p className="card-subtitle">We'll analyze your skills and find matching jobs</p>
           

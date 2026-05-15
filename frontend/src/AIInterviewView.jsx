@@ -167,16 +167,19 @@ export default function AIInterviewView({ onBack }) {
 
   return (
     <div className="ai-interview-view">
-      <div className="view-header">
-        <button className="btn btn-ghost" onClick={onBack}>
-          ← Back to Home
+      <header className="header section-header">
+        <button className="btn btn-ghost back-home-btn" onClick={onBack}>
+          ← Home
         </button>
-        <h1>AI Interview Practice</h1>
-        <p>Practice interviews with AI and get detailed feedback</p>
-      </div>
+        <div className="logo">
+          <MessageSquare size={28} strokeWidth={2} />
+          <h1>AI Interview Coaching</h1>
+        </div>
+        <p className="tagline">Practice live interview responses, get instant feedback, and build confidence for technical and behavioral questions.</p>
+      </header>
 
       {step === 'setup' && (
-        <form className="card interview-setup-card" onSubmit={handleStartInterview}>
+        <form className="card form-card interview-setup-card" onSubmit={handleStartInterview}>
           <h2>Setup Your Interview</h2>
           <p className="card-subtitle">Fill in your details to start the interview with John</p>
 
@@ -215,7 +218,7 @@ export default function AIInterviewView({ onBack }) {
             <select
               value={duration}
               onChange={(e) => setDuration(Number(e.target.value))}
-              className="input"
+              className="filter-select"
               disabled={loading}
             >
               {[1, 2, 3, 5, 10, 15, 20, 25, 30].map(min => (
@@ -332,7 +335,7 @@ export default function AIInterviewView({ onBack }) {
                 className="chat-input"
                 disabled={sending}
               />
-              <button type="submit" className="btn btn-primary" disabled={sending || !userInput.trim()}>
+              <button type="submit" className="chat-send-btn" disabled={sending || !userInput.trim()}>
                 <Send size={20} />
               </button>
             </form>

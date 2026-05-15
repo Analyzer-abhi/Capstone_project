@@ -61,12 +61,20 @@ export default function ProfileView({ user, onBack, onProfileSave }) {
 
   return (
     <main className="app-container profile-view">
-      <div className="profile-header">
+      <header className="header section-header">
         <button className="btn btn-ghost back-home-btn" onClick={onBack}>
           <ArrowLeft size={18} /> Back
         </button>
 
-        <div className="profile-details-card">
+        <div className="logo">
+          <Award size={28} strokeWidth={2} />
+          <h1>Profile</h1>
+        </div>
+        <p className="tagline">Update your personal and professional details so PathForge AI can deliver more accurate career guidance and custom recommendations.</p>
+      </header>
+
+      <div className="profile-main-grid">
+        <div className="profile-summary-card profile-details-card">
           <div className="profile-card-top">
             <div className="profile-avatar-large-page">{profileInfo.fullName?.charAt(0).toUpperCase() || 'U'}</div>
             <div>
@@ -74,9 +82,25 @@ export default function ProfileView({ user, onBack, onProfileSave }) {
               <p className="profile-email-page">{profileInfo.email || 'No email set'}</p>
             </div>
           </div>
+
           <p className="profile-summary">
             Use this page to keep your profile details current and help PathForge AI personalize your next career step.
           </p>
+
+          <div className="profile-info-list">
+            <div className="profile-info-item">
+              <span>Job title</span>
+              <span>{profileInfo.jobTitle || 'Not specified'}</span>
+            </div>
+            <div className="profile-info-item">
+              <span>Location</span>
+              <span>{profileInfo.location || 'Not specified'}</span>
+            </div>
+            <div className="profile-info-item">
+              <span>Email</span>
+              <span>{profileInfo.email || 'Not specified'}</span>
+            </div>
+          </div>
         </div>
 
         <div className="profile-form-card">
