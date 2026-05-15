@@ -2156,6 +2156,111 @@ select.input option:active {
   margin: 0;
 }
 
+/* ============================================================================
+   INFO PAGES - Footer link destinations
+   ============================================================================ */
+
+.info-page {
+  min-height: 70vh;
+  padding: 7rem 1.5rem 2rem;
+}
+
+.info-page-inner {
+  width: min(1040px, 100%);
+  margin: 0 auto;
+}
+
+.info-back-btn {
+  width: auto;
+  margin-bottom: 2rem;
+}
+
+.info-hero {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  padding: 2.25rem 0 2.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.info-icon {
+  width: 68px;
+  height: 68px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1px solid var(--border-heavy);
+}
+
+.info-eyebrow {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.info-hero h1 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  line-height: 0.98;
+}
+
+.info-hero > p:last-child {
+  max-width: 760px;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.info-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.info-card {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.info-card h2 {
+  margin: 0 0 1rem;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.info-card ul {
+  display: grid;
+  gap: 0.85rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.info-card li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7rem;
+  align-items: start;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.info-card li svg {
+  margin-top: 0.15rem;
+  color: var(--text-primary);
+}
+
 @media (max-width: 768px) {
   .profile-view {
     padding: 2rem 1rem;
@@ -2163,6 +2268,22 @@ select.input option:active {
 
   .profile-header {
     flex-direction: column;
+  }
+
+  .info-page {
+    padding: 5.5rem 1rem 1rem;
+  }
+
+  .info-hero {
+    padding: 1.5rem 0 2rem;
+  }
+
+  .info-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .info-card {
+    padding: 1.2rem;
   }
 }
 

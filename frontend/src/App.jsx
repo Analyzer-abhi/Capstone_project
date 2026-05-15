@@ -16,6 +16,7 @@ import JobSearchView from './JobSearchView';
 import AIInterviewView from './AIInterviewView';
 import FAANGQuestionsView from './FAANGQuestionsView';
 import ProfileView from './ProfileView';
+import InfoPage, { isInfoPage } from './InfoPage';
 
 export default function App() {
   // Authentication state
@@ -103,6 +104,12 @@ export default function App() {
       return;
     }
 
+    if (isInfoPage(featureId)) {
+      setIsAuthMode(false);
+      setCurrentFeature(featureId);
+      return;
+    }
+
     if (!user) {
       setIsAuthMode(true);
       return;
@@ -156,7 +163,23 @@ export default function App() {
           onLogin={handleOpenAuth}
         />
         <LoginPage onLoginSuccess={handleLoginSuccess} onCancel={() => setIsAuthMode(false)} />
-        <Footer />
+        <Footer onNavigate={handleNavigate} />
+      </>
+    );
+  }
+
+  // Footer information pages are public
+  if (isInfoPage(currentFeature)) {
+    return (
+      <>
+        <Navbar 
+          user={user} 
+          onLogout={handleLogout} 
+          onNavigate={handleNavigate}
+          onLogin={handleOpenAuth}
+        />
+        <InfoPage pageId={currentFeature} onBack={handleBackToLanding} />
+        <Footer onNavigate={handleNavigate} />
       </>
     );
   }
@@ -175,7 +198,7 @@ export default function App() {
           onSelectFeature={user ? setCurrentFeature : () => setIsAuthMode(true)}
           user={user}
         />
-        <Footer />
+        <Footer onNavigate={handleNavigate} />
       </>
     );
   }
@@ -191,7 +214,7 @@ export default function App() {
           onLogin={handleOpenAuth}
         />
         <JobSearchView onBack={handleBackToLanding} />
-        <Footer />
+        <Footer onNavigate={handleNavigate} />
       </>
     );
   }
@@ -207,7 +230,7 @@ export default function App() {
           onLogin={handleOpenAuth}
         />
         <AIInterviewView onBack={handleBackToLanding} />
-        <Footer />
+        <Footer onNavigate={handleNavigate} />
       </>
     );
   }
@@ -223,7 +246,7 @@ export default function App() {
           onLogin={handleOpenAuth}
         />
         <FAANGQuestionsView onBack={handleBackToLanding} />
-        <Footer />
+        <Footer onNavigate={handleNavigate} />
       </>
     );
   }
@@ -239,7 +262,7 @@ export default function App() {
           onLogin={handleOpenAuth}
         />
         <ProfileView user={user} onBack={handleBackToLanding} onProfileSave={handleProfileSave} />
-        <Footer />
+        <Footer onNavigate={handleNavigate} />
       </>
     );
   }
@@ -316,7 +339,7 @@ export default function App() {
           ) : null}
         </main>
       </div>
-      <Footer />
+      <Footer onNavigate={handleNavigate} />
     </>
   );
 }

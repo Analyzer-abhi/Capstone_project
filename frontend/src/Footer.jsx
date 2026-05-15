@@ -2,8 +2,14 @@ import React from 'react';
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
 import './footer.css';
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
   const currentYear = new Date().getFullYear();
+
+  const handleFooterNavigate = (pageId) => (event) => {
+    event.preventDefault();
+    onNavigate?.(pageId);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <footer className="app-footer">
@@ -37,10 +43,10 @@ export default function Footer() {
         <div className="footer-section">
           <h4>Product</h4>
           <ul className="footer-links">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#security">Security</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#features" onClick={handleFooterNavigate('features')}>Features</a></li>
+            <li><a href="#pricing" onClick={handleFooterNavigate('pricing')}>Pricing</a></li>
+            <li><a href="#security" onClick={handleFooterNavigate('security')}>Security</a></li>
+            <li><a href="#roadmap" onClick={handleFooterNavigate('roadmap-info')}>Roadmap</a></li>
           </ul>
         </div>
 
@@ -48,10 +54,10 @@ export default function Footer() {
         <div className="footer-section">
           <h4>Company</h4>
           <ul className="footer-links">
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#careers">Careers</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about" onClick={handleFooterNavigate('about')}>About Us</a></li>
+            <li><a href="#blog" onClick={handleFooterNavigate('blog')}>Blog</a></li>
+            <li><a href="#careers" onClick={handleFooterNavigate('careers')}>Careers</a></li>
+            <li><a href="#contact" onClick={handleFooterNavigate('contact')}>Contact</a></li>
           </ul>
         </div>
 
@@ -59,10 +65,10 @@ export default function Footer() {
         <div className="footer-section">
           <h4>Legal</h4>
           <ul className="footer-links">
-            <li><a href="#privacy">Privacy Policy</a></li>
-            <li><a href="#terms">Terms of Service</a></li>
-            <li><a href="#cookies">Cookie Policy</a></li>
-            <li><a href="#compliance">Compliance</a></li>
+            <li><a href="#privacy" onClick={handleFooterNavigate('privacy')}>Privacy Policy</a></li>
+            <li><a href="#terms" onClick={handleFooterNavigate('terms')}>Terms of Service</a></li>
+            <li><a href="#cookies" onClick={handleFooterNavigate('cookies')}>Cookie Policy</a></li>
+            <li><a href="#compliance" onClick={handleFooterNavigate('compliance')}>Compliance</a></li>
           </ul>
         </div>
       </div>
